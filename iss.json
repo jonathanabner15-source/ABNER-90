@@ -1,0 +1,23 @@
+{
+  "packet": {
+    "type": "orbit_pass",
+    "payload": {
+      "source": "ISS",
+      "pass_start": "05:53",
+      "pass_end": "05:57",
+      "duration_sec": 240,
+      "azimuth_deg": 344,
+      "elevation_deg": [10, 16, 28],
+      "magnitude": -0.5,
+      "grid_5x5": {
+        "x": 4,
+        "y": 1,
+        "path": [
+          {"t": "05:53", "x": 4, "y": 1},
+          {"t": "05:55", "x": 3, "y": 2},
+          {"t": "05:57", "x": 2, "y": 3}
+        ]
+      }
+    }
+  }
+}

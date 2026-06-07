@@ -1,0 +1,6 @@
+import time
+
+for stability in range(1, 101):
+    print(f"Stability at {stability}%")
+    time.sleep(60)
+
