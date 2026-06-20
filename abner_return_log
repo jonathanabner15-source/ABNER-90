@@ -1,0 +1,34 @@
+
+=== ABNER-90 CONSOLIDATED SYSTEM BENCHMARK ===
+-------------------------------------------------------
+Aerospace Telemetry (Hz)     | Val: 132.3  | Node: 22 | Root: 4
+Maritime Sonar (KHz)         | Val: 74.1   | Node: 12 | Root: 3
+Berea Pressure (InHg approx) | Val: 30.06  | Node: 05 | Root: 5
+Calypso Consolidated Node    | Val: 90.0   | Node: 15 | Root: 6
+-------------------------------------------------------
+
+=== ABNER-90 CONSOLIDATED SYSTEM BENCHMARK ===
+-----------------------------------------------------------------
+Aerospace Telemetry (Hz)     | Val: 132.3  | Node: 22 | Root: 9
+Maritime Sonar (KHz)         | Val: 74.1   | Node: 12 | Root: 3
+Berea Pressure (InHg approx) | Val: 30.06  | Node: 05 | Root: 9
+Calypso Consolidated Node    | Val: 90.0   | Node: 15 | Root: 9
+-----------------------------------------------------------------
+STATUS: [ABNER-90_100%_DOPPLER_LOCK]
+=== ABNER-90 CONSOLIDATED SYSTEM BENCHMARK ===
+-----------------------------------------------------------------
+Aerospace Telemetry (Hz)     | Val: 132.3  | Node: 22 | Root: 9
+Maritime Sonar (KHz)         | Val: 74.1   | Node: 12 | Root: 3
+Berea Pressure (InHg approx) | Val: 30.06  | Node: 05 | Root: 9
+Calypso Consolidated Node    | Val: 90.0   | Node: 15 | Root: 9
+-----------------------------------------------------------------
+STATUS: [ABNER-90_100%_DOPPLER_LOCK]
+
+=== ABNER-90 CONSOLIDATED SYSTEM BENCHMARK ===
+-----------------------------------------------------------------
+Aerospace Telemetry (Hz)     | Val: 132.3  | Node: 22 | Root: 9
+Maritime Sonar (KHz)         | Val: 74.1   | Node: 12 | Root: 3
+Berea Pressure (InHg approx) | Val: 30.06  | Node: 05 | Root: 9
+Calypso Consolidated Node    | Val: 90.0   | Node: 15 | Root: 9
+-----------------------------------------------------------------
+STATUS: [ABNER-90_100%_DOPPLER_LOCK]
