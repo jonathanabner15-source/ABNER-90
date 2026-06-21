@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometric Clock Construction</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f18;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --silver: #8a9bb5;
+    --dim: #2a2a3a;
+    --triangle: #e05555;
+    --hexagon: #55aaee;
+    --nonagon: #88dd88;
+    --star: #cc88ff;
+    --axis: #c9a84c;
+    --text: #d4c9a8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--silver);
+    letter-spacing: 0.15em;
+    text-align: center;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .canvas-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(201,168,76,0.08), 0 0 120px rgba(201,168,76,0.04), inset 0 0 30px rgba(0,0,0,0.5);
+  }
+
+  .controls {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .steps-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 2px;
+  }
+
+  .step-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .step-btn {
+    background: transparent;
+    border: 1px solid var(--dim);
+    color: var(--silver);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 8px 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    line-height: 1.3;
+    border-radius: 2px;
+  }
+
+  .step-btn:hover { border-color: var(--gold); color: var(--gold2); }
+  .step-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    padding: 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--dim);
+    border-radius: 4px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--silver);
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .info-box {
+    font-size: 0.8rem;
+    color: var(--silver);
+    text-align: center;
+    line-height: 1.6;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+    min-height: 48px;
+  }
+
+  .toggle-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .toggle-btn {
+    background: transparent;
+    border: 1px solid;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+    opacity: 0.5;
+  }
+  .toggle-btn.on { opacity: 1; }
+  .toggle-btn[data-shape="triangle"] { border-color: var(--triangle); color: var(--triangle); }
+  .toggle-btn[data-shape="triangle"].on { background: rgba(224,85,85,0.12); }
+  .toggle-btn[data-shape="hexagon"] { border-color: var(--hexagon); color: var(--hexagon); }
+  .toggle-btn[data-shape="hexagon"].on { background: rgba(85,170,238,0.12); }
+  .toggle-btn[data-shape="nonagon"] { border-color: var(--nonagon); color: var(--nonagon); }
+  .toggle-btn[data-shape="nonagon"].on { background: rgba(136,221,136,0.12); }
+  .toggle-btn[data-shape="star"] { border-color: var(--star); color: var(--star); }
+  .toggle-btn[data-shape="star"].on { background: rgba(204,136,255,0.12); }
+  .toggle-btn[data-shape="clock"] { border-color: var(--gold); color: var(--gold); }
+  .toggle-btn[data-shape="clock"].on { background: rgba(201,168,76,0.12); }
+</style>
+</head>
+<body>
+
+<h1>Geometric Clock Construction</h1>
+<p class="subtitle">Triangle · Hexagon · Nonagon · Star · Time</p>
+
+<div class="main">
+  <div class="canvas-wrap">
+    <canvas id="c" width="500" height="500"></canvas>
+  </div>
+
+  <div class="controls">
+    <div class="steps-label">Build Steps</div>
+    <div class="step-buttons">
+      <button class="step-btn active" data-step="0">Axes &amp;<br>Directions</button>
+      <button class="step-btn" data-step="1">Triangle<br>3·7·11</button>
+      <button class="step-btn" data-step="2">Hexagon<br>Even Hours</button>
+      <button class="step-btn" data-step="3">Nonagon<br>1·5·9</button>
+      <button class="step-btn" data-step="4">Stars &amp;<br>Clock</button>
+    </div>
+
+    <div class="toggle-row" id="toggleRow" style="display:none">
+      <button class="toggle-btn on" data-shape="triangle">Triangle</button>
+      <button class="toggle-btn on" data-shape="hexagon">Hexagon</button>
+      <button class="toggle-btn on" data-shape="nonagon">Nonagon</button>
+      <button class="toggle-btn on" data-shape="star">Stars</button>
+      <button class="toggle-btn on" data-shape="clock">Clock Face</button>
+    </div>
+
+    <div class="info-box" id="infoBox">
+      The eight directions establish our compass: four cardinal points at 90° intervals, four secondary points at 45°.
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--triangle)"></div>Triangle (3·7·11)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--hexagon)"></div>Hexagon (even hours)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--nonagon)"></div>Nonagon (1·5·9)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--star)"></div>Stars of David</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Clock / Axes</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = 500, H = 500, CX = 250, CY = 250;
+const R = 210; // main circle radius
+
+let step = 0;
+let vis = { triangle: true, hexagon: true, nonagon: true, star: true, clock: true };
+
+const infos = [
+  "The eight directions establish our compass: four cardinal points at 90° intervals (N·S·E·W), four secondary points at 45° (NE·NW·SE·SW). Every 6° mark will give us the 60 minutes; every 30° gives us the 12 hours.",
+  "Zero placed at East (3 o'clock). Three points at 120° intervals form a triangle — landing on hour markers 3, 7, and 11. The clockwise triangle.",
+  "Zero placed at South (6 o'clock). Six points at 60° intervals form a hexagon — giving us hour markers 6, 8, 10, 12, 2, and 4. Nine of the 12 hours are now placed.",
+  "Zero placed at West (9 o'clock). Nine points at 40° intervals form a nonagon. Three of these overlap the triangle at 120°/240°/360° — and the remaining three new points land on 1, 5, and 9. All 12 hours are now accounted for.",
+  "Connecting 1·5·9 forms the reverse (western) triangle, creating a Star of David east-to-west. Rotating 90° north aligns the second star north-to-south. The two overlapping Stars of David, nested within the nonagon, induce the full clock face — every 30° an hour, every 6° a minute."
+];
+
+function toRad(deg) { return deg * Math.PI / 180; }
+
+function ptOnCircle(deg, r, cx, cy) {
+  // 0° = East, clockwise
+  const rad = toRad(deg - 90); // rotate so 0=top=North... wait
+  // We want 0°=East=right, going clockwise
+  // In canvas: angle 0=right, going clockwise
+  return {
+    x: (cx || CX) + (r || R) * Math.cos(toRad(deg)),
+    y: (cy || CY) + (r || R) * Math.sin(toRad(deg))
+  };
+}
+
+// Clock convention: 12=top, going clockwise
+// hour h is at angle: (h/12)*360 - 90 degrees in standard math
+// But we'll place hours by degree from East (0=East=3 o'clock)
+// So hour 3 = 0°, hour 6 = 90°, hour 9 = 180°, hour 12 = 270°
+function hourAngle(h) {
+  return ((h - 3) / 12) * 360;
+}
+
+function drawCircle(r, color, width, dash) {
+  ctx.beginPath();
+  ctx.arc(CX, CY, r, 0, Math.PI * 2);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width || 1;
+  if (dash) ctx.setLineDash(dash); else ctx.setLineDash([]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawLine(a, b, color, width, dash) {
+  ctx.beginPath();
+  ctx.moveTo(a.x, a.y);
+  ctx.lineTo(b.x, b.y);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width || 1;
+  if (dash) ctx.setLineDash(dash); else ctx.setLineDash([]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawPolygon(points, color, width, fill) {
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+  ctx.closePath();
+  if (fill) {
+    ctx.fillStyle = fill;
+    ctx.fill();
+  }
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width || 1.5;
+  ctx.setLineDash([]);
+  ctx.stroke();
+}
+
+function drawDot(p, r, color) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawLabel(text, p, color, size, offsetX, offsetY) {
+  ctx.font = `${size||13}px 'Cinzel', serif`;
+  ctx.fillStyle = color;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, p.x + (offsetX||0), p.y + (offsetY||0));
+}
+
+function glow(color, blur) {
+  ctx.shadowColor = color;
+  ctx.shadowBlur = blur || 8;
+}
+function noGlow() { ctx.shadowBlur = 0; }
+
+// ---- DRAW FUNCTIONS ----
+
+function drawBackground() {
+  // Deep background
+  const grad = ctx.createRadialGradient(CX, CY, 0, CX, CY, R + 40);
+  grad.addColorStop(0, '#0f0f1a');
+  grad.addColorStop(1, '#07070e');
+  ctx.beginPath();
+  ctx.arc(CX, CY, R + 40, 0, Math.PI * 2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Subtle grid paper feel - concentric rings
+  for (let rr = R * 0.25; rr <= R; rr += R * 0.25) {
+    drawCircle(rr, 'rgba(201,168,76,0.05)', 0.5);
+  }
+}
+
+function drawAxes() {
+  // 8 direction lines
+  const dirs = [0, 45, 90, 135, 180, 225, 270, 315];
+  const cardinals = [0, 90, 180, 270];
+  
+  dirs.forEach(d => {
+    const isCard = cardinals.includes(d);
+    const p = ptOnCircle(d, R + 20);
+    const p2 = ptOnCircle(d + 180, R + 20);
+    glow('#c9a84c', 4);
+    drawLine(p2, p, isCard ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.2)',
+      isCard ? 0.8 : 0.5, isCard ? [] : [4, 4]);
+    noGlow();
+  });
+
+  // Direction labels
+  const labels = [
+    { d: 0, t: 'E' }, { d: 90, t: 'S' }, { d: 180, t: 'W' }, { d: 270, t: 'N' },
+    { d: 45, t: 'SE' }, { d: 135, t: 'SW' }, { d: 225, t: 'NW' }, { d: 315, t: 'NE' }
+  ];
+  labels.forEach(({ d, t }) => {
+    const isCard = [0, 90, 180, 270].some(x => x === d);
+    const p = ptOnCircle(d, R + 30);
+    ctx.font = `${isCard ? 11 : 9}px 'Cinzel', serif`;
+    ctx.fillStyle = isCard ? '#c9a84c' : 'rgba(201,168,76,0.5)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(t, p.x, p.y);
+  });
+
+  // 6-degree tick marks on outer ring
+  for (let d = 0; d < 360; d += 6) {
+    const isHour = d % 30 === 0;
+    const inner = ptOnCircle(d, R - (isHour ? 12 : 6));
+    const outer = ptOnCircle(d, R);
+    drawLine(inner, outer, isHour ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.2)',
+      isHour ? 1 : 0.5);
+  }
+
+  // Main circle
+  glow('#c9a84c', 6);
+  drawCircle(R, 'rgba(201,168,76,0.35)', 1);
+  noGlow();
+
+  // Center dot
+  glow('#c9a84c', 10);
+  drawDot({ x: CX, y: CY }, 4, '#c9a84c');
+  noGlow();
+}
+
+function drawTriangle() {
+  // 0° at East (hour 3), then every 120°
+  // hours 3, 7, 11
+  const angles = [0, 120, 240]; // from East, clockwise
+  const pts = angles.map(a => ptOnCircle(a, R));
+
+  glow('#e05555', 12);
+  drawPolygon(pts, '#e05555', 2, 'rgba(224,85,85,0.06)');
+  noGlow();
+
+  pts.forEach((p, i) => {
+    glow('#e05555', 10);
+    drawDot(p, 5, '#e05555');
+    noGlow();
+    const hours = [3, 7, 11];
+    const offset = 18;
+    const angle = angles[i];
+    const ox = Math.cos(toRad(angle)) * offset;
+    const oy = Math.sin(toRad(angle)) * offset;
+    drawLabel(hours[i], p, '#ff9999', 12, ox, oy);
+  });
+}
+
+function drawHexagon() {
+  // 0° at South (hour 6), then every 60°
+  // hours 6, 8, 10, 12, 2, 4
+  const startAngle = 90; // South = 90° in our system
+  const angles = [0, 1, 2, 3, 4, 5].map(i => startAngle + i * 60);
+  const pts = angles.map(a => ptOnCircle(a, R));
+  const hours = [6, 8, 10, 12, 2, 4];
+
+  glow('#55aaee', 12);
+  drawPolygon(pts, '#55aaee', 2, 'rgba(85,170,238,0.06)');
+  noGlow();
+
+  pts.forEach((p, i) => {
+    glow('#55aaee', 10);
+    drawDot(p, 5, '#55aaee');
+    noGlow();
+    const offset = 18;
+    const ox = Math.cos(toRad(angles[i])) * offset;
+    const oy = Math.sin(toRad(angles[i])) * offset;
+    drawLabel(hours[i], p, '#99ccff', 12, ox, oy);
+  });
+}
+
+function drawNonagon() {
+  // 0° at West (hour 9), then every 40°
+  const startAngle = 180; // West
+  const angles = [0,1,2,3,4,5,6,7,8].map(i => startAngle + i * 40);
+  const pts = angles.map(a => ptOnCircle(a, R));
+
+  glow('#88dd88', 10);
+  drawPolygon(pts, '#88dd88', 1.5, 'rgba(136,221,136,0.04)');
+  noGlow();
+
+  pts.forEach((p, i) => {
+    // angles[i] mod 120 == 0 → overlaps with triangle
+    const overlap = (angles[i] % 120 === 0) || (angles[i] % 120 === 60 && false);
+    // Check if this is a new hour point (1, 5, 9)
+    // Hour 9 = 180°, Hour 1 = 300° (180+120?), Hour 5 = 60° (180+240?)
+    // Actually: 1 o'clock = (1-3)/12*360 = -60° = 300°, 5 o'clock = (5-3)/12*360 = 60°, 9 o'clock = 180°
+    const hourAngles1_5_9 = [300, 60, 180];
+    const normalA = ((angles[i] % 360) + 360) % 360;
+    const isNew = hourAngles1_5_9.includes(normalA);
+
+    if (!overlap) {
+      glow('#88dd88', 8);
+      drawDot(p, isNew ? 5 : 3, isNew ? '#88dd88' : 'rgba(136,221,136,0.5)');
+      noGlow();
+    }
+
+    if (isNew) {
+      const hourMap = { 300: 1, 60: 5, 180: 9 };
+      const h = hourMap[normalA];
+      const offset = 18;
+      const ox = Math.cos(toRad(normalA)) * offset;
+      const oy = Math.sin(toRad(normalA)) * offset;
+      drawLabel(h, p, '#aaffaa', 12, ox, oy);
+    }
+  });
+}
+
+function drawEasternTriangle() {
+  // Eastern triangle: hours 3, 7, 11 — already drawn
+  // Western (reverse) triangle: hours 9, 1, 5
+  // Hour 9 = 180°, Hour 1 = 300°, Hour 5 = 60°
+  const angles = [180, 300, 60];
+  const pts = angles.map(a => ptOnCircle(a, R));
+
+  glow('#cc88ff', 14);
+  drawPolygon(pts, '#cc88ff', 2, 'rgba(204,136,255,0.05)');
+  noGlow();
+}
+
+function drawStarOfDavidEW() {
+  // East triangle: 0°, 120°, 240° (hours 3,7,11)
+  // West triangle: 180°, 300°, 60° (hours 9,1,5)
+  // Already drawn by drawTriangle + drawEasternTriangle
+  // Just add the star highlight lines
+  // Star lines = edges connecting the two triangles' vertices
+}
+
+function drawStarOfDavidNS() {
+  // Rotate 90° clockwise from west: now north-south
+  // North-pointing triangle: 270°, 30°, 150° (hours 12,2,8 ... wait)
+  // Actually: first star is E-W. Second star is N-S — rotated 90° from first.
+  // N star upward triangle: 270°, 30°, 150°
+  // N star downward triangle: 90°, 210°, 330°
+  const tri1 = [270, 30, 150].map(a => ptOnCircle(a, R));
+  const tri2 = [90, 210, 330].map(a => ptOnCircle(a, R));
+
+  glow('#cc88ff', 14);
+  drawPolygon(tri1, 'rgba(204,136,255,0.7)', 1.5, 'rgba(204,136,255,0.03)');
+  drawPolygon(tri2, 'rgba(204,136,255,0.7)', 1.5, 'rgba(204,136,255,0.03)');
+  noGlow();
+}
+
+function drawClockFace() {
+  // Hour numbers all 12
+  for (let h = 1; h <= 12; h++) {
+    const deg = hourAngle(h);
+    const p = ptOnCircle(deg, R - 28);
+    ctx.font = `bold 14px 'Cinzel', serif`;
+    ctx.fillStyle = '#c9a84c';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    glow('#c9a84c', 8);
+    ctx.fillText(h, p.x, p.y);
+    noGlow();
+  }
+
+  // Minute dots every 6°
+  for (let d = 0; d < 360; d += 6) {
+    const isHour = d % 30 === 0;
+    if (!isHour) {
+      const p = ptOnCircle(d, R - 8);
+      drawDot(p, 1.5, 'rgba(201,168,76,0.4)');
+    }
+  }
+
+  // Clock hands showing ~10:10 (classic)
+  // Hour hand at 10:10 → roughly 300° + a bit
+  // In our system: hour h at hourAngle(h)
+  // 10:10 → hour hand ≈ 300° + (10/60)*30 = 305°
+  const hourHandAngle = hourAngle(10) + (10 / 60) * 30;
+  const minHandAngle = hourAngle(3) - 90 + (10 / 60) * 360; // 10 min = 60°
+
+  // minute hand (10 min = 60° from top = 330° in our East-based system)
+  const mA = (10 / 60) * 360 + hourAngle(12); // 10 min past = 60° from north
+  const mEnd = ptOnCircle(mA, R * 0.78);
+  glow('#c9a84c', 8);
+  drawLine({ x: CX, y: CY }, mEnd, '#c9a84c', 2);
+
+  // hour hand
+  const hEnd = ptOnCircle(hourHandAngle, R * 0.55);
+  drawLine({ x: CX, y: CY }, hEnd, '#c9a84c', 3);
+  noGlow();
+
+  // Center cap
+  glow('#c9a84c', 12);
+  drawDot({ x: CX, y: CY }, 6, '#c9a84c');
+  noGlow();
+}
+
+// ---- MAIN RENDER ----
+function render() {
+  ctx.clearRect(0, 0, W, H);
+  drawBackground();
+  drawAxes();
+
+  if (step >= 1 && vis.triangle) drawTriangle();
+  if (step >= 2 && vis.hexagon) drawHexagon();
+  if (step >= 3 && vis.nonagon) drawNonagon();
+  if (step >= 4 && vis.star) {
+    drawEasternTriangle();
+    drawStarOfDavidNS();
+  }
+  if (step >= 4 && vis.clock) drawClockFace();
+}
+
+// ---- CONTROLS ----
+document.querySelectorAll('.step-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    step = parseInt(btn.dataset.step);
+    document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('infoBox').textContent = infos[step];
+    document.getElementById('toggleRow').style.display = step >= 4 ? 'flex' : 'none';
+    render();
+  });
+});
+
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const shape = btn.dataset.shape;
+    vis[shape] = !vis[shape];
+    btn.classList.toggle('on', vis[shape]);
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,118 @@
+import copy
+
+N = 12
+MOD = 9
+
+# -------------------------
+# Helpers
+# -------------------------
+def mod9(x):
+    return x % MOD
+
+def add(a, b):
+    return mod9(a + b)
+
+# -------------------------
+# Initialize grid (unknowns = -1)
+# -------------------------
+grid = [[-1 for _ in range(N)] for _ in range(N)]
+
+# -------------------------
+# Center constraint (7-2-2-7)
+# -------------------------
+grid[6][6] = 7
+grid[6][7] = 2
+grid[7][6] = 2
+grid[7][7] = 7
+
+# -------------------------
+# Seed initialization (simple deterministic seed)
+# You can change this later for experiments
+# -------------------------
+for i in range(N):
+    if grid[0][i] == -1:
+        grid[0][i] = (i * 3 + 1) % MOD
+    if grid[1][i] == -1:
+        grid[1][i] = (i * 5 + 2) % MOD
+
+for i in range(N):
+    if grid[i][0] == -1:
+        grid[i][0] = (i * 2 + 3) % MOD
+    if grid[i][1] == -1:
+        grid[i][1] = (i * 4 + 1) % MOD
+
+# -------------------------
+# Toroidal access
+# -------------------------
+def get(i, j):
+    return grid[i % N][j % N]
+
+def setv(i, j, val):
+    grid[i % N][j % N] = val
+
+# -------------------------
+# Constraint solver loop
+# -------------------------
+def iterate():
+    changed = False
+    new_grid = copy.deepcopy(grid)
+
+    for i in range(N):
+        for j in range(N):
+
+            # skip fixed center
+            if (i, j) in [(6,6),(6,7),(7,6),(7,7)]:
+                continue
+
+            # row constraint
+            a = get(i+1, j)
+            b = get(i+2, j)
+
+            if a != -1 and b != -1:
+                val_row = add(a, b)
+            else:
+                val_row = None
+
+            # col constraint
+            c = get(i, j+1)
+            d = get(i, j+2)
+
+            if c != -1 and d != -1:
+                val_col = add(c, d)
+            else:
+                val_col = None
+
+            # merge logic
+            candidates = []
+            if val_row is not None:
+                candidates.append(val_row)
+            if val_col is not None:
+                candidates.append(val_col)
+
+            if candidates:
+                final = candidates[0]
+
+                # consistency check
+                if grid[i][j] == -1 or grid[i][j] != final:
+                    new_grid[i][j] = final
+                    changed = True
+
+    return new_grid, changed
+
+# -------------------------
+# Run solver
+# -------------------------
+MAX_ITERS = 50
+
+for step in range(MAX_ITERS):
+    grid, changed = iterate()
+    if not changed:
+        break
+
+# -------------------------
+# Print result
+# -------------------------
+print("\nABNER-90 12x12 Result:\n")
+
+for row in grid:
+    print(" ".join(str(x) for x in row))
