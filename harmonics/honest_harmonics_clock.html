@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Honest Harmonics Clock</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #eee;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #clockCanvas {
+      border: 1px solid #444;
+      background: #000;
+    }
+    #info {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="clockCanvas" width="500" height="500"></canvas>
+  <div id="info">Honest Harmonics Clock · ABNER-90 geometry demo</div>
+
+  <script>
+    const canvas = document.getElementById('clockCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+    const CX = W / 2;
+    const CY = H / 2;
+    const R = 200;
+
+    // --- basic helpers ---
+    function degToRad(deg) {
+      return (deg * Math.PI) / 180;
+    }
+
+    function drawPolygon(sides, radius, rotationDeg, color, lineWidth = 2) {
+      ctx.save();
+      ctx.translate(CX, CY);
+      ctx.rotate(degToRad(rotationDeg));
+      ctx.beginPath();
+
+      for (let i = 0; i < sides; i++) {
+        const angle = (2 * Math.PI * i) / sides;
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      ctx.closePath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineWidth;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawRadialLines(count, radius, color, lineWidth = 1) {
+      ctx.save();
+      ctx.translate(CX, CY);
+      ctx.beginPath();
+      for (let i = 0; i < count; i++) {
+        const angle = (2 * Math.PI * i) / count;
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        ctx.moveTo(0, 0);
+        ctx.lineTo(x, y);
+      }
+      ctx.stroke

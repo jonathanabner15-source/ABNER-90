@@ -1,0 +1,56 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@11.16.0
+2 info using node@v26.2.0
+3 silly config load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm install npm@11.17.0
+7 verbose argv "install" "--global" "npm@11.17.0"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2026-06-18T03_01_20_720Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2026-06-18T03_01_20_720Z-debug-0.log
+10 silly logfile done cleaning log files
+11 http fetch GET 200 https://registry.npmjs.org/npm 457ms (cache miss)
+12 silly packumentCache heap:996409344 maxSize:249102336 maxEntrySize:124551168
+13 silly idealTree buildDeps
+14 silly fetch manifest npm@11.17.0
+15 silly packumentCache full:https://registry.npmjs.org/npm cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/npm 1699ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/npm set size:undefined disposed:false
+18 silly placeDep ROOT npm@11.17.0 OK for:  want: 11.17.0
+19 silly reify mark retired [
+19 silly reify   '/data/data/com.termux/files/usr/lib/node_modules/npm',
+19 silly reify   '/data/data/com.termux/files/usr/bin/npm',
+19 silly reify   '/data/data/com.termux/files/usr/bin/npx'
+19 silly reify ]
+20 silly reify moves {
+20 silly reify   '/data/data/com.termux/files/usr/lib/node_modules/npm': '/data/data/com.termux/files/usr/lib/node_modules/.npm-Ad3JtrjG',
+20 silly reify   '/data/data/com.termux/files/usr/bin/npm': '/data/data/com.termux/files/usr/bin/.npm-9oXEyzxI',
+20 silly reify   '/data/data/com.termux/files/usr/bin/npx': '/data/data/com.termux/files/usr/bin/.npx-vlNjOz4J'
+20 silly reify }
+21 http cache npm@https://registry.npmjs.org/npm/-/npm-11.17.0.tgz 1ms (cache hit)
+22 silly tarball no local data for npm@https://registry.npmjs.org/npm/-/npm-11.17.0.tgz. Extracting by manifest.
+23 http fetch GET 200 https://registry.npmjs.org/npm/-/npm-11.17.0.tgz 3325ms (cache miss)
+24 silly CHANGE node_modules/npm
+25 silly CHANGE node_modules/npm/node_modules/@npmcli/installed-package-contents
+26 silly CHANGE node_modules/npm/node_modules/@npmcli/config
+27 silly CHANGE node_modules/npm/node_modules/@npmcli/arborist
+28 silly CHANGE node_modules/npm/node_modules/tinyglobby
+29 silly CHANGE node_modules/npm/node_modules/which
+30 silly CHANGE node_modules/npm/node_modules/qrcode-terminal
+31 silly CHANGE node_modules/npm/node_modules/tar
+32 silly CHANGE node_modules/npm/node_modules/semver
+33 silly CHANGE node_modules/npm/node_modules/postcss-selector-parser
+34 silly CHANGE node_modules/npm/node_modules/pacote
+35 silly CHANGE node_modules/npm/node_modules/nopt
+36 silly CHANGE node_modules/npm/node_modules/node-gyp
+37 silly CHANGE node_modules/npm/node_modules/libnpmpack
+38 silly CHANGE node_modules/npm/node_modules/libnpmexec
+39 silly CHANGE node_modules/npm/node_modules/libnpmdiff
+40 silly CHANGE node_modules/npm/node_modules/libnpmfund
+41 silly CHANGE node_modules/npm/node_modules/cssesc
+42 verbose cwd /data/data/com.termux/files/home
+43 verbose os Linux 6.1.128-android14-11-32532371-abX218USQSBEZBE
+44 verbose node v26.2.0
+45 verbose npm  v11.16.0
+46 verbose exit 0
+47 info ok
