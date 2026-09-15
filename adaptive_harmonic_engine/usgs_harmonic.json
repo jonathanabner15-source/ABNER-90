@@ -1,0 +1,9 @@
+[
+    {"time": 0, "level_ft_harmonic": 4.2, "temp_c_harmonic": 12.1},
+    {"time": 1, "level_ft_harmonic": 4.3, "temp_c_harmonic": 12.0},
+    {"time": 2, "level_ft_harmonic": 4.1, "temp_c_harmonic": 11.9},
+    {"time": 3, "level_ft_harmonic": 4.0, "temp_c_harmonic": 11.7},
+    {"time": 4, "level_ft_harmonic": 4.4, "temp_c_harmonic": 12.3},
+    {"time": 5, "level_ft_harmonic": 4.5, "temp_c_harmonic": 12.4},
+    {"time": 6, "level_ft_harmonic": 4.6, "temp_c_harmonic": 12.5}
+]
