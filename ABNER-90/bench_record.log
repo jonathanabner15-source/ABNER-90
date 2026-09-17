@@ -1,0 +1,5 @@
+ABNER-90: Multidomain Frequency Sync
+--------------------------------------------------
+Aerospace Telemetry (Hz)  | Val: 144.0  | Node: 24 | Root: 6
+Maritime Sonar (KHz)      | Val: 54.0   | Node: 09 | Root: 0
+Berea Pressure (InHg approx) | Val: 29.97  | Node: 05 | Root: 5

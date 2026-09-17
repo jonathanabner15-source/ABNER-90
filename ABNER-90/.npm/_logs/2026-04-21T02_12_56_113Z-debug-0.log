@@ -1,0 +1,77 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@11.12.1
+2 info using node@v25.8.2
+3 silly config load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm install @github/copilot
+7 verbose argv "install" "--global" "@github/copilot"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2026-04-21T02_12_56_113Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2026-04-21T02_12_56_113Z-debug-0.log
+10 silly packumentCache heap:996409344 maxSize:249102336 maxEntrySize:124551168
+11 silly logfile done cleaning log files
+12 silly idealTree buildDeps
+13 silly fetch manifest @github/copilot@*
+14 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot cache-miss
+15 http fetch GET 200 https://registry.npmjs.org/npm 489ms
+16 http fetch GET 200 https://registry.npmjs.org/@github%2fcopilot 581ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot set size:undefined disposed:false
+18 silly placeDep ROOT @github/copilot@1.0.34 OK for:  want: *
+19 silly fetch manifest @github/copilot-linux-x64@1.0.34
+20 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-linux-x64 cache-miss
+21 silly fetch manifest @github/copilot-linux-arm64@1.0.34
+22 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-linux-arm64 cache-miss
+23 silly fetch manifest @github/copilot-darwin-x64@1.0.34
+24 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-darwin-x64 cache-miss
+25 silly fetch manifest @github/copilot-darwin-arm64@1.0.34
+26 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-darwin-arm64 cache-miss
+27 silly fetch manifest @github/copilot-win32-x64@1.0.34
+28 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-win32-x64 cache-miss
+29 silly fetch manifest @github/copilot-win32-arm64@1.0.34
+30 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-win32-arm64 cache-miss
+31 http fetch GET 200 https://registry.npmjs.org/@github%2fcopilot-linux-arm64 305ms (cache miss)
+32 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-linux-arm64 set size:undefined disposed:false
+33 http fetch GET 200 https://registry.npmjs.org/@github%2fcopilot-linux-x64 316ms (cache miss)
+34 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-linux-x64 set size:undefined disposed:false
+35 http fetch GET 200 https://registry.npmjs.org/@github%2fcopilot-darwin-x64 330ms (cache miss)
+36 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-darwin-x64 set size:undefined disposed:false
+37 http fetch GET 200 https://registry.npmjs.org/@github%2fcopilot-win32-arm64 376ms (cache miss)
+38 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-win32-arm64 set size:undefined disposed:false
+39 http fetch GET 200 https://registry.npmjs.org/@github%2fcopilot-win32-x64 472ms (cache miss)
+40 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-win32-x64 set size:undefined disposed:false
+41 http fetch GET 200 https://registry.npmjs.org/@github%2fcopilot-darwin-arm64 508ms (cache miss)
+42 silly packumentCache full:https://registry.npmjs.org/@github%2fcopilot-darwin-arm64 set size:undefined disposed:false
+43 silly placeDep node_modules/@github/copilot @github/copilot-darwin-arm64@1.0.34 OK for: @github/copilot@1.0.34 want: 1.0.34
+44 silly placeDep node_modules/@github/copilot @github/copilot-darwin-x64@1.0.34 OK for: @github/copilot@1.0.34 want: 1.0.34
+45 silly placeDep node_modules/@github/copilot @github/copilot-linux-arm64@1.0.34 OK for: @github/copilot@1.0.34 want: 1.0.34
+46 silly placeDep node_modules/@github/copilot @github/copilot-linux-x64@1.0.34 OK for: @github/copilot@1.0.34 want: 1.0.34
+47 silly placeDep node_modules/@github/copilot @github/copilot-win32-arm64@1.0.34 OK for: @github/copilot@1.0.34 want: 1.0.34
+48 silly placeDep node_modules/@github/copilot @github/copilot-win32-x64@1.0.34 OK for: @github/copilot@1.0.34 want: 1.0.34
+49 silly reify moves {}
+50 verbose stack Error: EEXIST: file already exists
+50 verbose stack     at failEEXIST (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/bin-links/lib/check-bin.js:47:32)
+50 verbose stack     at handleReadLinkError (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/bin-links/lib/check-bin.js:25:5)
+50 verbose stack     at /data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/bin-links/lib/check-bin.js:29:18
+50 verbose stack     at async checkLink (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/bin-links/lib/check-bin.js:28:19)
+50 verbose stack     at async Promise.all (index 0)
+50 verbose stack     at async binLinks.checkBins (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/bin-links/lib/check-bins.js:15:3)
+50 verbose stack     at async [checkBins] (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/rebuild.js:220:5)
+50 verbose stack     at async /data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:659:7
+50 verbose stack     at async Promise.allSettled (index 0)
+50 verbose stack     at async #reifyPackages (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:317:11)
+51 error code EEXIST
+52 error path /data/data/com.termux/files/usr/bin/copilot
+53 error EEXIST: file already exists
+54 error File exists: /data/data/com.termux/files/usr/bin/copilot
+55 error Remove the existing file and try again, or run npm
+56 error with --force to overwrite files recklessly.
+57 silly unfinished npm timer reify 1776737577650
+58 silly unfinished npm timer reify:unpack 1776737578949
+59 silly unfinished npm timer reifyNode:node_modules/@github/copilot 1776737578949
+60 verbose cwd /data/data/com.termux/files/home/downloads
+61 verbose os Linux 6.1.128-android14-11-32532371-abX218USQSBEZBE
+62 verbose node v25.8.2
+63 verbose npm  v11.12.1
+64 verbose exit 1
+65 verbose code 1
+66 error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2026-04-21T02_12_56_113Z-debug-0.log
