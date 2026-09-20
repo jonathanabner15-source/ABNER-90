@@ -1,69 +1,3 @@
-print(f"System State at 9m Wobble: {drift_status}") 
-# Output: System State at 9m Wobble: 0
-python
-pkg update && pkg upgrade -y
-pkg install git nodejs -y
-pkg install python -y
-curl -fsSL https://gh.io/copilot-install -o copilot-install.sh
-less copilot-install.sh
-pkg update && pkg upgrade -y
-pkg install git nodejs -y
-pkg install python -y
-curl -fsSL https://gh.io/copilot-install -o copilot-install.sh
-less copilot-install.sh
-bash copilot-install.sh
-ls ~/.local/bin
-copilot auth login
-ls
-tall.sh
-pkg install tall.sh
-pkg install copilot-install.sh
-'code-1.116.0-1776214233.el8.x86_64 (1).rpm'
-cd ~/downloads
-chmod +x copilot-install.sh
-bash copilot-install.sh
-copiloy
-copilot help
-bash copilot help
-ls -1
-copilot-install.sh
-pkg search copilot-install.sh
-npm install -g @github/copilot
-pkg search npm
-termux-change-repo
-pkg install nodejs
-node -v
-npm -v
-pkg install nodejs
-node -v
-npm -v
-mkdir testproj
-cd testproj
-npm init -y
-echo "console.log('System online')" > index.js
-node index.js
-npm install express
-npm fund
-npm install fastify
-npm install next
-pkg install git
-pkg install python
-pkg install openssh
-pkg install nano
-nano index.js
-node index.js
-traffic.py
-pkg install traffic.py
-apt install traffic.py
-apt list --upgradable
-pkg update && pkg upgrade
-pkg install build-essential python-dev libffi-dev openssl-dev
-apt purge zeronet
-y
-apt purge zeronet
-pkg install clang python libffi openssl build-essential
-pip install pysha3 --no-cache-dir
-apt purge zeronet
 pkg install clang python libffi openssl build-essential
 rm /data/data/com.termux/files/usr/var/lib/dpkg/info/zeronet.postinst
 dpkg --configure -a
@@ -498,3 +432,69 @@ cd ~/abner90
 python3 abner-engine-v2.py
 watch uptime -p
 tmux
+pkg install x11-repo
+pkg update && pkg upgrade
+git status
+rm -i *"stress_test_3.py"
+ls -i | grep "stress_test_3.py"
+find . -inum 657602 -delete && git add . && git commit -m "System state sync: $(date +'%Y-%m-%d %H:%M:%S')" && git push origin ascension
+top
+mkdir -p adaptive_harmonic_engine && cp -r stress_test*.py validation_pisano.py validation_stress_test.py zodiac_matrix.py usgs_harmonic.json telemetry.log ui_terminal.py ui_web.py adaptive_harmonic_engine/
+ls adaptive_harmonic_engine
+git add .
+git status
+git checkout ascension && git commit -m "Merged system into adaptive_harmonic_engine payload: $(date +'%Y-%m-%d %H:%M:%S')" && git push origin ascension
+git checkout ascension && mkdir -p adaptive_harmonic_engine && cp -r stress_test*.py validation_pisano.py validation_stress_test.py zodiac_matrix.py usgs_harmonic.json telemetry.log ui_terminal.py ui_web.py adaptive_harmonic_engine/ && git add .
+ls
+cd adaptive_harmonic_engine
+ls
+git checkout ascension && mkdir -p adaptive_harmonic_engine && cp -r stress_test*.py validation_pisano.py validation_stress_test.py zodiac_matrix.py usgs_harmonic.json telemetry.log ui_terminal.py ui_web.py adaptive_harmonic_engine/ && git add .
+git status
+git commit -m "Fresh sync: adaptive_harmonic_engine payload $(date +'%Y-%m-%d %H:%M:%S')" && git push origin ascension
+git checkout ascension && mkdir -p adaptive_harmonic_engine && cp -r stress_test*.py validation_pisano.py validation_stress_test.py zodiac_matrix.py usgs_harmonic.json telemetry.log ui_terminal.py ui_web.py adaptive_harmonic_engine/ && git add .
+git status
+git commit -m "Fresh sync: adaptive_harmonic_engine payload $(date +'%Y-%m-%d %H:%M:%S')" && git push origin ascension
+cd .. && git add . && git commit -m "Fresh sync: adaptive_harmonic_engine payload $(date +'%Y-%m-%d %H:%M:%S')" && git push origin ascension
+git rm --cached ABNER-90 && rm -rf ABNER-90/.git && git add . && git commit --amend --no-edit
+git config --global credential.helper store && git push -u origin ascension
+pkg install git-filter-repo
+pwd
+cd ~/ABNER-90
+pwd
+ls
+git status
+git ls-files --error-unmatch abner_90_backup_tar_gz
+ls abner_90_backup_tar_gz
+tail -n 1 .gitignore
+echo "abner_90_backup.tar.gz" >> .gitignore
+tail -n 1 .gitignore
+git reset --soft HEAD~1
+git status
+git add .gitignore && git commit -m "Clean build: system state update"
+git push origin ascension --force
+git rm --cached -f abner_90_backup.tar.gz
+git commit --amend --no-edit
+git log -p -1
+git push origin ascension --force
+git status
+ls -lh ~/abner_90_backup.tar.gz
+find ~ -name "abner_90_backup.tar.gz" 2>/dev/null
+mv ~/ABNER-90/abner_90_backup.tar.gz ~/
+ls -lh ~/abner_90_backup.tar.gz
+~/
+git status
+sed -i 's/abner_90_backup_tar_gz/abner_90_backup.tar.gz/g' .gitignore
+git status
+echo "../abner_90_backup.tar.gz" >> .gitignore
+git status
+git checkout .gitignore
+git status
+git config --global core.excludesfile ~/.gitignore_global && echo "../abner_90_backup.tar.gz" >> ~/.gitignore_global
+git status
+git config --global core.excludesfile ~/.gitignore_global && echo "../abner_90_backup.tar.gz" >> ~/.gitignore_global
+git status
+git config --global --unset core.excludesfile && rm -f ~/.gitignore_global
+git status
+git log -1 --oneline
+echo "../abner_90_backup.tar.gz" >> .git/info/exclude
+git status
